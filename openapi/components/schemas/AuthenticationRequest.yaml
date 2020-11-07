@@ -19,10 +19,6 @@ properties:
     type: string
   client_secret:
     type: string
-  client_assertion:
-    type: string
-  client_assertion_type:
-    type: string
 required:
   - scope
 example:
