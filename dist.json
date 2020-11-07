@@ -1,0 +1,789 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "bvnid",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://www.bvnid.com/auth",
+      "description": "BVNID server"
+    }
+  ],
+  "paths": {
+    "/authorize": {
+      "post": {
+        "tags": [
+          "Authorization"
+        ],
+        "summary": "Authorization Endpoint",
+        "operationId": "authorize",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "tags": [
+          "Authorization"
+        ],
+        "summary": "Token Endpoint",
+        "operationId": "token",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/.well-known/openid-configuration": {
+      "get": {
+        "tags": [
+          "Authorization"
+        ],
+        "summary": "OpenID Connect Discovery",
+        "operationId": "discoverOpenIDConfiguration",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WellKnown"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jwks.json": {
+      "get": {
+        "tags": [
+          "Authorization"
+        ],
+        "summary": "JSON Web Keys Discovery",
+        "operationId": "wellKnown",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JSONWebKeySet"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/userinfo": {
+      "get": {
+        "tags": [
+          "Authorization"
+        ],
+        "summary": "UserInfo Endpoint",
+        "operationId": "userinfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basic": {
+        "type": "http",
+        "description": "Basic Authentication",
+        "scheme": "basic"
+      }
+    },
+    "schemas": {
+      "AuthenticationRequest": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "type": "string"
+          },
+          "client_notification_token": {
+            "type": "string"
+          },
+          "acr_values": {
+            "type": "string"
+          },
+          "login_hint": {
+            "type": "string"
+          },
+          "binding_message": {
+            "type": "string"
+          },
+          "user_code": {
+            "type": "string"
+          },
+          "requested_expiry": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "client_id": {
+            "type": "string"
+          },
+          "client_secret": {
+            "type": "string"
+          },
+          "client_assertion": {
+            "type": "string"
+          },
+          "client_assertion_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope"
+        ],
+        "example": {
+          "scope": "openid email example-scope",
+          "client_notification_token": "8d67dc78-7faa-4d41-aabd-67707b374255",
+          "bindng_message": "W4SCT",
+          "login_hint": 53672876567,
+          "client_id": "s6BhdRkqt3",
+          "client_secret": "7Fjfp0ZBr1KtDRbnfVdmIw"
+        }
+      },
+      "AuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "auth_req_id": {
+            "type": "string"
+          },
+          "expires_in": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interval": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "example": {
+          "auth_req_id": "1c266114-a1be-4252-8ad1-04986c5b9ac1",
+          "expires_in": 120,
+          "interval": 2
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "title": "ErrorResponse",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "error_description": {
+            "type": "string"
+          },
+          "error_uri": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "invalid_scope",
+          "error_description": "The requested scope is invalid."
+        }
+      },
+      "TokenRequest": {
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "type": "string"
+          },
+          "auth_req_id": {
+            "type": "string"
+          },
+          "client_id": {
+            "type": "string"
+          },
+          "client_secret": {
+            "type": "string"
+          },
+          "client_assertion": {
+            "type": "string"
+          },
+          "client_assertion_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "grant_type",
+          "auth_req_id"
+        ]
+      },
+      "TokenResponse": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "expires_in": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "id_token": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "token_type": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "access_token": "G5kXH2wHvUra0sHlDy1iTkDJgsgUO1bN",
+          "token_type": "Bearer",
+          "expires_in": 120,
+          "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6InB1YmxpYzo2ZjIxMTlkZS03ZWY4LTQ0NDQtYjNkYy1lNDNiYWY2MDUwMGYiLCJ0eXAiOiJKV1QifQ.eyJhZGRyZXNzIjp7ImNvdW50cnkiOiJOTyIsImZvcm1hdHRlZCI6IlRlc3QxMjNcbk9rIGtcbjAxNDUgb3Nsb1xuTk8iLCJwb3N0YWxfY29kZSI6IjAxNDUiLCJyZWdpb24iOiJvc2xvIiwic3RyZWV0X2FkZHJlc3MiOiJUZXN0MTIzXG5PayBrIn0sImF0X2hhc2giOiJnUGpRUEpPbmp3Z09Uck96OWg1b0RRIiwiYXVkIjpbIm9pZGMtdGVzdGNsaWVudCJdLCJhdXRoX3RpbWUiOjE1NjMzNjA4ODYsImJpcnRoZGF0ZSI6IjAyLjA5LjE5NDciLCJlbWFpbCI6Imtpc2hvcnRlc3RAb3V0bG9vay5jb20iLCJleHAiOjE1NjMzNjQ0OTAsImZhbWlseV9uYW1lIjoiQ0hJTlRBTEEiLCJnaXZlbl9uYW1lIjoiS0lTSE9SIiwiaWF0IjoxNTYzMzYwODkwLCJpc3MiOiJodHRwczovL2xvZ2luLXVhdC52aXBwcy5pby9hY2Nlc3MtbWFuYWdlbWVudC0xLjAvYWNjZXNzLyIsImp0aSI6IjM3ZjE2MzEwLTU1MTEtNDhkZi1iYzVkLTE0OWJiNjJjYjE1OSIsIm5hbWUiOiJLSVNIT1IgQ0hJTlRBTEEiLCJubmluIjoiMDIwOTQ3MDAzODAiLCJub25jZSI6IjlhNmJlODg0LWQwZjktNDU5Zi04Mzg3LTQwN2EzYWQ1NWQwZCIsInBob25lX251bWJlciI6IjQ3OTM5OTkyNDMiLCJyYXQiOjE1NjMzNjA4NjgsInNpZCI6IjdkNzhhNzI2LWFmOTItNDk5ZS1iODU3LWRlMjYzZWY5YTk2OSIsInN1YiI6ImpaaUNCQnBSanB4eFptbVdNcUFCb3MifQ.Fq7cabcYYFRLKuROjowqwnJHghjNCe9cgJ4Zfx_3nTjRo7YJQsx1qcEFW2ak_7OEP0lAPPri0VTPtdWRDe39P4WLPQ3fkhu3y93WSzxPJ6nkzyp6yMeuJ6QC9GhyNvpDnlwXaeGP3AN3OQU6aHy1ujsyCtGapHB3yds1Uuf-8mC5qBa7KUTuHrh1QhsgQzqiXTTHtniJdz6mwwRvX_TT7J1yJHJAFbwLdm_H228Vq4jLOEeFx-v2vcC1mpSkEJQ4a6PwjnlIgEHeBl9aUPwQa92ulREsqWhZWpACY7FvtefQXM6llBnQiMInyidr_qRThaCF3uBMdLwccbBRv1cmUGGmiXHyu64-vnXj-5FwPmflur76tMN-Wp9cbpw7hWTAQb0B6yy8LhEolZydDQMri8rD1q4VaZbJY03NM70MWyIIR5T0ZqTuFBXtKAys47TJmGklFTvWfzYdebErogH3cD81myJz7rlnBKYBdIsdKtaGec8M53wx-zWHJXA6lvVASMWfDb_xxuBV43RxCbGY6gd8Wi2zDewCJiDoN2vINRZuvb4o3aq90NiAgOaPjvabRKFnVUL98rZeJaCo17PmS1D87OjgTuG289Il6ebmTSSV89gCyd-Kt70Xvta8Li616nhtGVQYlRikBoUP8ESuPq-6ezwaos0MaSsO6C1nwV0"
+        }
+      },
+      "WellKnown": {
+        "type": "object",
+        "title": "WellKnown",
+        "required": [
+          "authorization_endpoint",
+          "id_token_signing_alg_values_supported",
+          "issuer",
+          "jwks_uri",
+          "response_types_supported",
+          "subject_types_supported",
+          "token_endpoint"
+        ],
+        "properties": {
+          "authorization_endpoint": {
+            "type": "string"
+          },
+          "claims_parameter_supported": {
+            "type": "boolean"
+          },
+          "claims_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "grant_types_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id_token_signing_alg_values_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "jwks_uri": {
+            "type": "string"
+          },
+          "request_parameter_supported": {
+            "type": "boolean"
+          },
+          "request_uri_parameter_supported": {
+            "type": "boolean"
+          },
+          "require_request_uri_registration": {
+            "type": "boolean"
+          },
+          "response_modes_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "response_types_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scopes_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "subject_types_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "token_endpoint": {
+            "type": "string"
+          },
+          "token_endpoint_auth_methods_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "userinfo_endpoint": {
+            "type": "string"
+          },
+          "userinfo_signing_alg_values_supported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "issuer": "https://www.bvnid.com/auth",
+          "authorization_endpoint": "https://www.bvnid.com/auth/authorize",
+          "token_endpoint": "https://www.bvnid.com/auth/token",
+          "userinfo_endpoint": "https://www.bvnid.com/auth/userinfo",
+          "jwks_uri": "https://www.bvnid.com/auth/jwks.json",
+          "scopes_supported": [
+            "openid",
+            "address",
+            "other_addresses",
+            "email",
+            "profile",
+            "phone",
+            "nin",
+            "bvn",
+            "account_numbers"
+          ],
+          "grant_types_supported": [
+            "urn:openid:params:grant-type:ciba"
+          ],
+          "backchannel_token_delivery_modes_supported": [
+            "poll",
+            "ping",
+            "push"
+          ],
+          "token_endpoint_auth_methods_supported": [
+            "client_secret_basic",
+            "client_secret_post",
+            "private_key_jwt",
+            "tls_client_auth",
+            "self_signed_tls_client_auth"
+          ],
+          "token_endpoint_auth_signing_alg_values_supported": [
+            "RS256"
+          ],
+          "backchannel_user_code_parameter_supported": true
+        }
+      },
+      "JSONWebKey": {
+        "type": "object",
+        "required": [
+          "use",
+          "kty",
+          "kid",
+          "alg"
+        ],
+        "properties": {
+          "alg": {
+            "type": "string"
+          },
+          "crv": {
+            "type": "string"
+          },
+          "d": {
+            "type": "string"
+          },
+          "dp": {
+            "type": "string"
+          },
+          "dq": {
+            "type": "string"
+          },
+          "e": {
+            "type": "string"
+          },
+          "k": {
+            "type": "string"
+          },
+          "kid": {
+            "type": "string",
+            "x-go-name": "Kid"
+          },
+          "kty": {
+            "type": "string"
+          },
+          "n": {
+            "type": "string"
+          },
+          "p": {
+            "type": "string"
+          },
+          "q": {
+            "type": "string"
+          },
+          "qi": {
+            "type": "string"
+          },
+          "use": {
+            "type": "string"
+          },
+          "x": {
+            "type": "string"
+          },
+          "x5c": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "y": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "alg": "RS256",
+          "crv": "P-256",
+          "d": "T_N8I-6He3M8a7X1vWt6TGIx4xB_GP3Mb4SsZSA4v-orvJzzRiQhLlRR81naWYxfQAYt5isDI6_C2L9bdWo4FFPjGQFvNoRX-_sBJyBI_rl-TBgsZYoUlAj3J92WmY2inbA-PwyJfsaIIDceYBC-eX-xiCu6qMqkZi3MwQAFL6bMdPEM0z4JBcwFT3VdiWAIRUuACWQwrXMq672x7fMuaIaHi7XDGgt1ith23CLfaREmJku9PQcchbt_uEY-hqrFY6ntTtS4paWWQj86xLL94S-Tf6v6xkL918PfLSOTq6XCzxvlFwzBJqApnAhbwqLjpPhgUG04EDRrqrSBc5Y1BLevn6Ip5h1AhessBp3wLkQgz_roeckt-ybvzKTjESMuagnpqLvOT7Y9veIug2MwPJZI2VjczRc1vzMs25XrFQ8DpUy-bNdp89TmvAXwctUMiJdgHloJw23Cv03gIUAkDnsTqZmkpbIf-crpgNKFmQP_EDKoe8p_PXZZgfbRri3NoEVGP7Mk6yEu8LjJhClhZaBNjuWw2-KlBfOA3g79mhfBnkInee5KO9mGR50qPk1V-MorUYNTFMZIm0kFE6eYVWFBwJHLKYhHU34DoiK1VP-svZpC2uAMFNA_UJEwM9CQ2b8qe4-5e9aywMvwcuArRkAB5mBIfOaOJao3mfukKAE",
+          "e": "AQAB",
+          "k": "GawgguFyGrWKav7AX4VKUg",
+          "kid": "1603dfe0af8f4596",
+          "kty": "RSA",
+          "n": "vTqrxUyQPl_20aqf5kXHwDZrel-KovIp8s7ewJod2EXHl8tWlRB3_Rem34KwBfqlKQGp1nqah-51H4Jzruqe0cFP58hPEIt6WqrvnmJCXxnNuIB53iX_uUUXXHDHBeaPCSRoNJzNysjoJ30TIUsKBiirhBa7f235PXbKiHducLevV6PcKxJ5cY8zO286qJLBWSPm-OIevwqsIsSIH44Qtm9sioFikhkbLwoqwWORGAY0nl6XvVOlhADdLjBSqSAeT1FPuCDCnXwzCDR8N9IFB_IjdStFkC-rVt2K5BYfPd0c3yFp_vHR15eRd0zJ8XQ7woBC8Vnsac6Et1pKS59pX6256DPWu8UDdEOolKAPgcd_g2NpA76cAaF_jcT80j9KrEzw8Tv0nJBGesuCjPNjGs_KzdkWTUXt23Hn9QJsdc1MZuaW0iqXBepHYfYoqNelzVte117t4BwVp0kUM6we0IqyXClaZgOI8S-WDBw2_Ovdm8e5NmhYAblEVoygcX8Y46oH6bKiaCQfKCFDMcRgChme7AoE1yZZYsPbaG_3IjPrC4LBMHQw8rM9dWjJ8ImjicvZ1pAm0dx-KHCP3y5PVKrxBDf1zSOsBRkOSjB8TPODnJMz6-jd5hTtZxpZPwPoIdCanTZ3ZD6uRBpTmDwtpRGm63UQs1m5FWPwb0T2IF0",
+          "p": "6NbkXwDWUhi-eR55Cgbf27FkQDDWIamOaDr0rj1q0f1fFEz1W5A_09YvG09Fiv1AO2-D8Rl8gS1Vkz2i0zCSqnyy8A025XOcRviOMK7nIxE4OH_PEsko8dtIrb3TmE2hUXvCkmzw9EsTF1LQBOGC6iusLTXepIC1x9ukCKFZQvdgtEObQ5kzd9Nhq-cdqmSeMVLoxPLd1blviVT9Vm8-y12CtYpeJHOaIDtVPLlBhJiBoPKWg3vxSm4XxIliNOefqegIlsmTIa3MpS6WWlCK3yHhat0Q-rRxDxdyiVdG_wzJvp0Iw_2wms7pe-PgNPYvUWH9JphWP5K38YqEBiJFXQ",
+          "q": "0A1FmpOWR91_RAWpqreWSavNaZb9nXeKiBo0DQGBz32DbqKqQ8S4aBJmbRhJcctjCLjain-ivut477tAUMmzJwVJDDq2MZFwC9Q-4VYZmFU4HJityQuSzHYe64RjN-E_NQ02TWhG3QGW6roq6c57c99rrUsETwJJiwS8M5p15Miuz53DaOjv-uqqFAFfywN5WkxHbraBcjHtMiQuyQbQqkCFh-oanHkwYNeytsNhTu2mQmwR5DR2roZ2nPiFjC6nsdk-A7E3S3wMzYYFw7jvbWWoYWo9vB40_MY2Y0FYQSqcDzcBIcq_0tnnasf3VW4Fdx6m80RzOb2Fsnln7vKXAQ",
+          "qi": "GyM_p6JrXySiz1toFgKbWV-JdI3jQ4ypu9rbMWx3rQJBfmt0FoYzgUIZEVFEcOqwemRN81zoDAaa-Bk0KWNGDjJHZDdDmFhW3AN7lI-puxk_mHZGJ11rxyR8O55XLSe3SPmRfKwZI6yU24ZxvQKFYItdldUKGzO6Ia6zTKhAVRU",
+          "use": "sig",
+          "x": "f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
+          "y": "x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0"
+        }
+      },
+      "JSONWebKeySet": {
+        "type": "object",
+        "properties": {
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JSONWebKey"
+            }
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "account_name": {
+            "type": "string"
+          },
+          "account_number": {
+            "type": "string"
+          },
+          "bank_name": {
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "address_type": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "default": {
+            "type": "boolean"
+          },
+          "formatted": {
+            "type": "string"
+          },
+          "postal_code": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "street_address": {
+            "type": "string"
+          }
+        }
+      },
+      "UserInfo": {
+        "type": "object",
+        "properties": {
+          "accounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "other_addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          "birthdate": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "email_verified": {
+            "type": "boolean"
+          },
+          "family_name": {
+            "type": "string"
+          },
+          "given_name": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "nin": {
+            "type": "string"
+          },
+          "bvn": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "sub": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "sub": "c06c4afe-d9e1-4c5d-939a-177d752a0944",
+          "birthdate": "1815-12-10",
+          "email": "user@example.com",
+          "email_verified": true,
+          "nin": "10121550047",
+          "bvn": "53672876567",
+          "name": "Ago Johnson",
+          "given_name": "Ago",
+          "family_name": "Johnson",
+          "sid": "7d78a726-af92-499e-b857-de263ef9a969",
+          "phone_number": "09091234567",
+          "address": {
+            "street_address": "21, Orimolade Crescent, Adeniyi Jones",
+            "postal_code": "101234",
+            "region": "LAGOS",
+            "country": "NG",
+            "formatted": "21, Orimolade Crescent, Adeniyi Jones\\n101234 LAGOS\\nNG",
+            "address_type": "home"
+          },
+          "other_addresses": [
+            {
+              "street_address": "4 Idowu Martins Street, Victoria Island",
+              "postal_code": "101234",
+              "region": "LAGOS",
+              "country": "NG",
+              "formatted": "4 Idowu Martins Street, Victoria Island 2\\n101234 LAGOS\\nNG",
+              "address_type": "work"
+            },
+            {
+              "street_address": "2B, Prince Adelowo Adedeji Street, Lekki",
+              "postal_code": "101234",
+              "region": "LAGOS",
+              "country": "NG",
+              "formatted": "2B, Prince Adelowo Adedeji Street, Lekki\\n101234 LAGOS\\nNG",
+              "address_type": "other"
+            }
+          ],
+          "accounts": [
+            {
+              "account_name": "My savings",
+              "account_number": "12064590675",
+              "bank_name": "My bank"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
