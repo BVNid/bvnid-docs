@@ -1,0 +1,30 @@
+get:
+  tags:
+    - Authorization
+  summary: UserInfo Endpoint
+  operationId: userinfo
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ..\components\schemas\UserInfo.yaml
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: ..\components\schemas\ErrorResponse.yaml
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ..\components\schemas\ErrorResponse.yaml
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: ..\components\schemas\ErrorResponse.yaml

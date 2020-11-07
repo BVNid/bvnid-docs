@@ -1,0 +1,16 @@
+type: object
+properties:
+  address_type:
+    type: string
+  country:
+    type: string
+  default:
+    type: boolean
+  formatted:
+    type: string
+  postal_code:
+    type: string
+  region:
+    type: string
+  street_address:
+    type: string

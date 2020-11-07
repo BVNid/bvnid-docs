@@ -1,0 +1,18 @@
+get:
+  tags:
+    - Authorization
+  summary: OpenID Connect Discovery
+  operationId: discoverOpenIDConfiguration
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ..\components\schemas\WellKnown.yaml
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: ..\components\schemas\ErrorResponse.yaml

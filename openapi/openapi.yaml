@@ -1,0 +1,24 @@
+openapi: 3.0.1
+info:
+  title: bvnid
+  version: 0.0.1
+servers:
+  - url: 'http://www.bvnid.com/auth'
+    description: BVNID server
+paths:
+  /authorize:
+    $ref: paths\authorize.yaml
+  /token:
+    $ref: paths\token.yaml
+  /.well-known/openid-configuration:
+    $ref: paths\.well-known@openid-configuration.yaml
+  /jwks.json:
+    $ref: paths\jwks.json.yaml
+  /userinfo:
+    $ref: paths\userinfo.yaml
+components:
+  securitySchemes:
+    basic:
+      type: http
+      description: Basic Authentication
+      scheme: basic

@@ -1,0 +1,14 @@
+type: object
+properties:
+  auth_req_id:
+    type: string
+  expires_in:
+    type: integer
+    format: int64
+  interval:
+    type: integer
+    format: int64
+example:
+  auth_req_id: 1c266114-a1be-4252-8ad1-04986c5b9ac1
+  expires_in: 120
+  interval: 2

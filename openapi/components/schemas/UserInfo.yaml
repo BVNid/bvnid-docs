@@ -1,0 +1,70 @@
+type: object
+properties:
+  accounts:
+    type: array
+    items:
+      $ref: .\Account.yaml
+  address:
+    $ref: .\Address.yaml
+  other_addresses:
+    type: array
+    items:
+      $ref: .\Address.yaml
+  birthdate:
+    type: string
+  email:
+    type: string
+  email_verified:
+    type: boolean
+  family_name:
+    type: string
+  given_name:
+    type: string
+  name:
+    type: string
+  nin:
+    type: string
+  bvn:
+    type: string
+  phone_number:
+    type: string
+  sid:
+    type: string
+  sub:
+    type: string
+example:
+  sub: c06c4afe-d9e1-4c5d-939a-177d752a0944
+  birthdate: '1815-12-10'
+  email: user@example.com
+  email_verified: true
+  nin: '10121550047'
+  bvn: '53672876567'
+  name: Ago Johnson
+  given_name: Ago
+  family_name: Johnson
+  sid: 7d78a726-af92-499e-b857-de263ef9a969
+  phone_number: 09091234567
+  address:
+    street_address: '21, Orimolade Crescent, Adeniyi Jones'
+    postal_code: '101234'
+    region: LAGOS
+    country: NG
+    formatted: '21, Orimolade Crescent, Adeniyi Jones\n101234 LAGOS\nNG'
+    address_type: home
+  other_addresses:
+    - street_address: '4 Idowu Martins Street, Victoria Island'
+      postal_code: '101234'
+      region: LAGOS
+      country: NG
+      formatted: '4 Idowu Martins Street, Victoria Island 2\n101234 LAGOS\nNG'
+      address_type: work
+    - street_address: '2B, Prince Adelowo Adedeji Street, Lekki'
+      postal_code: '101234'
+      region: LAGOS
+      country: NG
+      formatted: '2B, Prince Adelowo Adedeji Street, Lekki\n101234 LAGOS\nNG'
+      address_type: other
+  accounts:
+    - account_name: My savings
+      account_number: '12064590675'
+      bank_name: My bank

@@ -1,0 +1,14 @@
+type: object
+title: ErrorResponse
+required:
+  - error
+properties:
+  error:
+    type: string
+  error_description:
+    type: string
+  error_uri:
+    type: string
+example:
+  error: invalid_scope
+  error_description: The requested scope is invalid.

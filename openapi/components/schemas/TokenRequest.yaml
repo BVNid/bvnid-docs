@@ -1,0 +1,17 @@
+type: object
+properties:
+  grant_type:
+    type: string
+  auth_req_id:
+    type: string
+  client_id:
+    type: string
+  client_secret:
+    type: string
+  client_assertion:
+    type: string
+  client_assertion_type:
+    type: string
+required:
+  - grant_type
+  - auth_req_id
