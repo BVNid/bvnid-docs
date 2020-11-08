@@ -1,7 +1,9 @@
 get:
   tags:
     - Authorization
+  security: []
   summary: OpenID Connect Discovery
+  description: Returns metadata that covers endpoint locations, server capabilities and configuration.
   operationId: discoverOpenIDConfiguration
   responses:
     '200':
