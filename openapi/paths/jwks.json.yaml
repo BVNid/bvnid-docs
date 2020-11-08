@@ -1,7 +1,9 @@
 get:
   tags:
     - Authorization
+  security: []
   summary: JSON Web Keys Discovery
+  description: Returns a JWKS containing public keys that enable RP to validate issued JSON Web Token (JWT).
   operationId: wellKnown
   responses:
     '200':

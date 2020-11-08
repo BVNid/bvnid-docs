@@ -2,7 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "bvnid",
-    "version": "0.0.1"
+    "version": "0.0.1",
+    "description": "Electronic identification solution for proof of identity of citizens for services, such as payment and digital signature."
   },
   "servers": [
     {
@@ -16,7 +17,13 @@
         "tags": [
           "Authorization"
         ],
+        "security": [
+          {
+            "clientSecretBasic": []
+          }
+        ],
         "summary": "Authorization Endpoint",
+        "description": "Performs Authentication of the End-User.",
         "operationId": "authorize",
         "requestBody": {
           "content": {
@@ -86,7 +93,13 @@
         "tags": [
           "Authorization"
         ],
+        "security": [
+          {
+            "clientSecretBasic": []
+          }
+        ],
         "summary": "Token Endpoint",
+        "description": "Issues an access_token and id_token to the RP.",
         "operationId": "token",
         "requestBody": {
           "content": {
@@ -187,7 +200,9 @@
         "tags": [
           "Authorization"
         ],
+        "security": [],
         "summary": "JSON Web Keys Discovery",
+        "description": "Returns a JWKS containing public keys that enable RP to validate issued JSON Web Token (JWT).",
         "operationId": "wellKnown",
         "responses": {
           "200": {
@@ -218,7 +233,13 @@
         "tags": [
           "Authorization"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "UserInfo Endpoint",
+        "description": "Returns information about the authenticated user.",
         "operationId": "userinfo",
         "responses": {
           "200": {
@@ -267,10 +288,15 @@
   },
   "components": {
     "securitySchemes": {
-      "basic": {
+      "clientSecretBasic": {
         "type": "http",
-        "description": "Basic Authentication",
+        "description": "basic authentication with client_id and client_secret",
         "scheme": "basic"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "description": "Token authentication",
+        "scheme": "bearer"
       }
     },
     "schemas": {

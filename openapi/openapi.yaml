@@ -2,6 +2,7 @@ openapi: 3.0.1
 info:
   title: bvnid
   version: 0.0.1
+  description: Electronic identification solution for proof of identity of citizens for services, such as payment and digital signature.
 servers:
   - url: 'http://www.bvnid.com/auth'
     description: BVNID server
@@ -18,7 +19,11 @@ paths:
     $ref: paths\userinfo.yaml
 components:
   securitySchemes:
-    basic:
+    clientSecretBasic:
       type: http
-      description: Basic Authentication
+      description: basic authentication with client_id and client_secret
       scheme: basic
+    BearerAuth:
+      type: http
+      description: Token authentication
+      scheme: bearer

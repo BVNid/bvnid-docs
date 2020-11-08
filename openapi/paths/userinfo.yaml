@@ -1,7 +1,10 @@
 get:
   tags:
     - Authorization
+  security:
+    - BearerAuth: []
   summary: UserInfo Endpoint
+  description: Returns information about the authenticated user.
   operationId: userinfo
   responses:
     '200':

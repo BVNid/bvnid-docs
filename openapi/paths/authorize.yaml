@@ -1,7 +1,10 @@
 post:
   tags:
     - Authorization
+  security:
+    - clientSecretBasic: []
   summary: Authorization Endpoint
+  description: Performs Authentication of the End-User.
   operationId: authorize
   requestBody:
     content:
