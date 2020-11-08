@@ -6,8 +6,10 @@ properties:
     type: string
   client_id:
     type: string
+    description: This can only be used INSTEAD of using the authorization header
   client_secret:
     type: string
+    description: This can only be used INSTEAD of using the authorization header
 required:
   - grant_type
   - auth_req_id

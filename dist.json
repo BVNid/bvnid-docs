@@ -169,7 +169,9 @@
         "tags": [
           "Authorization"
         ],
+        "security": [],
         "summary": "OpenID Connect Discovery",
+        "description": "Returns metadata that covers endpoint locations, server capabilities and configuration.",
         "operationId": "discoverOpenIDConfiguration",
         "responses": {
           "200": {
@@ -326,10 +328,12 @@
             "format": "int64"
           },
           "client_id": {
-            "type": "string"
+            "type": "string",
+            "description": "This can only be used INSTEAD of using the authorization header"
           },
           "client_secret": {
-            "type": "string"
+            "type": "string",
+            "description": "This can only be used INSTEAD of using the authorization header"
           }
         },
         "required": [
@@ -397,10 +401,12 @@
             "type": "string"
           },
           "client_id": {
-            "type": "string"
+            "type": "string",
+            "description": "This can only be used INSTEAD of using the authorization header"
           },
           "client_secret": {
-            "type": "string"
+            "type": "string",
+            "description": "This can only be used INSTEAD of using the authorization header"
           }
         },
         "required": [

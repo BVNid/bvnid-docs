@@ -17,8 +17,10 @@ properties:
     format: int64
   client_id:
     type: string
+    description: This can only be used INSTEAD of using the authorization header
   client_secret:
     type: string
+    description: This can only be used INSTEAD of using the authorization header
 required:
   - scope
 example:
