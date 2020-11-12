@@ -2,7 +2,7 @@ post:
   tags:
     - Authorization
   security:
-    - clientSecretBasic: []
+    - BasicAuth: []
   summary: Token Endpoint
   description: Issues an access_token and id_token to the RP.
   operationId: token

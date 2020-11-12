@@ -4,8 +4,12 @@ info:
   version: 0.0.1
   description: Electronic identification solution for proof of identity of citizens for services, such as payment and digital signature.
 servers:
-  - url: 'http://www.bvnid.com/auth'
-    description: BVNID server
+  - url: 'https://${request.url.host}:${request.url.port}/'
+    variables:
+      request.url.host:
+        default: unknown
+      request.url.port:
+        default: unknown
 paths:
   /authorize:
     $ref: paths\authorize.yaml
@@ -19,11 +23,7 @@ paths:
     $ref: paths\userinfo.yaml
 components:
   securitySchemes:
-    clientSecretBasic:
-      type: http
-      description: basic authentication with client_id and client_secret
-      scheme: basic
+    BasicAuth:
+      $ref: components\securitySchemes\basic.yaml
     BearerAuth:
-      type: http
-      description: Token authentication
-      scheme: bearer
+      $ref: components\securitySchemes\bearer.yaml

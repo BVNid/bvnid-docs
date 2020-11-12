@@ -7,8 +7,15 @@
   },
   "servers": [
     {
-      "url": "http://www.bvnid.com/auth",
-      "description": "BVNID server"
+      "url": "https://${request.url.host}:${request.url.port}/",
+      "variables": {
+        "request.url.host": {
+          "default": "unknown"
+        },
+        "request.url.port": {
+          "default": "unknown"
+        }
+      }
     }
   ],
   "paths": {
@@ -19,7 +26,7 @@
         ],
         "security": [
           {
-            "clientSecretBasic": []
+            "BasicAuth": []
           }
         ],
         "summary": "Authorization Endpoint",
@@ -95,7 +102,7 @@
         ],
         "security": [
           {
-            "clientSecretBasic": []
+            "BasicAuth": []
           }
         ],
         "summary": "Token Endpoint",
@@ -290,14 +297,14 @@
   },
   "components": {
     "securitySchemes": {
-      "clientSecretBasic": {
+      "BasicAuth": {
         "type": "http",
-        "description": "basic authentication with client_id and client_secret",
+        "description": "Basic authentication with `client_id` and `client_secret`",
         "scheme": "basic"
       },
       "BearerAuth": {
         "type": "http",
-        "description": "Token authentication",
+        "description": "Token authentication with `access_token`",
         "scheme": "bearer"
       }
     },
@@ -324,8 +331,7 @@
             "type": "string"
           },
           "requested_expiry": {
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "client_id": {
             "type": "string",

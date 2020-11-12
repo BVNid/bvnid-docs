@@ -1,0 +1,3 @@
+type: http
+description: Token authentication with `access_token`
+scheme: bearer

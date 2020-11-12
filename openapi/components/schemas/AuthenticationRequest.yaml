@@ -14,7 +14,6 @@ properties:
     type: string
   requested_expiry:
     type: integer
-    format: int64
   client_id:
     type: string
     description: This can only be used INSTEAD of using the authorization header
