@@ -22,6 +22,7 @@ properties:
     description: This can only be used INSTEAD of using the authorization header
 required:
   - scope
+  - login_hint
 example:
   scope: openid email example-scope
   client_notification_token: 8d67dc78-7faa-4d41-aabd-67707b374255

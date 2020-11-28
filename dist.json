@@ -26,7 +26,7 @@
         ],
         "security": [
           {
-            "BasicAuth": []
+            "clientSecretBasic": []
           }
         ],
         "summary": "Authorization Endpoint",
@@ -102,7 +102,7 @@
         ],
         "security": [
           {
-            "BasicAuth": []
+            "clientSecretBasic": []
           }
         ],
         "summary": "Token Endpoint",
@@ -244,7 +244,7 @@
         ],
         "security": [
           {
-            "BearerAuth": []
+            "bearer": []
           }
         ],
         "summary": "UserInfo Endpoint",
@@ -297,12 +297,12 @@
   },
   "components": {
     "securitySchemes": {
-      "BasicAuth": {
+      "clientSecretBasic": {
         "type": "http",
         "description": "Basic authentication with `client_id` and `client_secret`",
         "scheme": "basic"
       },
-      "BearerAuth": {
+      "bearer": {
         "type": "http",
         "description": "Token authentication with `access_token`",
         "scheme": "bearer"
@@ -343,7 +343,8 @@
           }
         },
         "required": [
-          "scope"
+          "scope",
+          "login_hint"
         ],
         "example": {
           "scope": "openid email example-scope",
@@ -361,12 +362,10 @@
             "type": "string"
           },
           "expires_in": {
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "interval": {
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           }
         },
         "example": {
@@ -427,12 +426,10 @@
             "type": "string"
           },
           "expires_in": {
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "id_token": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           "token_type": {
             "type": "string"

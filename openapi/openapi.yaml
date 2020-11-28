@@ -23,7 +23,7 @@ paths:
     $ref: paths\userinfo.yaml
 components:
   securitySchemes:
-    BasicAuth:
-      $ref: components\securitySchemes\basic.yaml
-    BearerAuth:
+    clientSecretBasic:
+      $ref: components\securitySchemes\clientSecretBasic.yaml
+    bearer:
       $ref: components\securitySchemes\bearer.yaml

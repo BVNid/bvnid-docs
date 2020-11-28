@@ -4,10 +4,8 @@ properties:
     type: string
   expires_in:
     type: integer
-    format: int64
   id_token:
-    type: integer
-    format: int64
+    type: string
   token_type:
     type: string
 example:
